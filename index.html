@@ -487,12 +487,21 @@
 
 .neon-btn {
     position: relative;
-    padding: 1rem 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(0.8rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2.5rem);
     border: 2px solid var(--neon-color);
-    border-radius: 50px;
+    border-radius: 10rem;
     color: var(--neon-color);
+    font-size: clamp(1rem, 1.2vw + 0.8rem, 1.2rem);
+    text-decoration: none;
     overflow: hidden;
     transition: all 0.4s var(--ease-smooth);
+    min-width: 120px; /* Minimum touch target size */
+    min-height: 48px; /* Accessible tap target size */
+    text-align: center;
+    line-height: 1.2;
 }
 
 .neon-btn::before {
@@ -502,24 +511,17 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg,
+    background: linear-gradient(
+        90deg,
         transparent,
         rgba(6, 247, 213, 0.3),
-        transparent);
+        transparent
+    );
     transition: left 0.6s var(--ease-smooth);
 }
 
+/* Mobile-first hover states */
 @media (hover: hover) {
-    .profile-card:hover .profile-photo {
-        transform: rotateY(20deg) rotateX(10deg) scale(1.05);
-    }
-    
-    .tech-icon:hover {
-        transform: translateY(-5px) scale(1.1);
-        color: var(--neon-color);
-        background: rgba(6, 247, 213, 0.1);
-    }
-    
     .neon-btn:hover {
         text-shadow: 0 0 10px var(--neon-color);
         box-shadow: 0 0 20px rgba(6, 247, 213, 0.3);
@@ -528,6 +530,28 @@
     .neon-btn:hover::before {
         left: 100%;
     }
+}
+
+/* Mobile adaptations */
+@media screen and (max-width: 768px) {
+    .neon-btn {
+        width: 80%;
+        max-width: 280px;
+        padding: 0.9rem 1.8rem;
+        font-size: 1rem;
+    }
+    
+    .neon-btn span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* Active state for touch devices */
+.neon-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 15px rgba(6, 247, 213, 0.2);
 }
 
 @keyframes hologram {
